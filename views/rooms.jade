@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  h1 Welcome to the Rooms page 
+  table.table(border = '5px' , style = 'border-color: white')
+    thead
+      tr
+        th Name
+        th Id
+    tbody
+      each room in rooms
+        tr
+          td #{room.name} 
+          td #{room.id}    
