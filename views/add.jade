@@ -1,0 +1,11 @@
+extends layout
+
+block content
+
+  form(method="post")
+    fieldset.form-group
+      label(for="room_name") Room: 
+      input.form-control(name="room_name" , type="text" , placeholder="Enter A Name", style="color:black")
+      small.text-muted Enter A Meaningful room name to start chitchatting
+    button.btn.btn-primary(type="submit") Create Chatroom
+    a.btn.btn-default(href="/admin/rooms") Back    
