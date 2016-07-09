@@ -13,6 +13,9 @@ app.use(bodyparser.urlencoded({extended : true}));
 var admin_router = require('./admin.js');
 app.use('/adminportal',admin_router);
 
+var api_router = require('./api.js');
+app.use('/api',api_router);
+
 app.get('/',function(req,res){
         res.render('home',{title: "Chit Chat"});
 });
