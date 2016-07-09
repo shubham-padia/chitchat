@@ -10,7 +10,7 @@ app.use(express.static('node_modules/bootstrap/dist'));
 app.use(bodyparser.urlencoded({extended : true}));
 
 var admin_router = require('./admin.js');
-app.use(admin_router);
+app.use('/adminportal',admin_router);
 
 app.get('/',function(req,res){
         res.render('index',{title: "Chit Chat"});

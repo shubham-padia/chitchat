@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1 Welcome to the Rooms page 
-  a.btn.btn-primary(href="/admin/rooms/add") Add a new chat room
+  a.btn.btn-primary(href="#{baseUrl}/rooms/add") Add a new chat room
   table.table(border = '5px' , style = 'border-color: white')
     thead
       tr
@@ -13,9 +13,9 @@ block content
     tbody
       each room in rooms
         tr
-          td(style="width: 3vw;"): a(href="/admin/rooms/edit/#{room.id}")
+          td(style="width: 3vw;"): a(href="#{baseUrl}/rooms/edit/#{room.id}")
             span.glyphicon.glyphicon-pencil(style="color:white;")
           td #{room.name} 
           td #{room.id}    
-          td(style="width: 3vw;"): a(href="/admin/rooms/delete/#{room.id}")
+          td(style="width: 3vw;"): a(href="#{baseUrl}/rooms/delete/#{room.id}")
             span.glyphicon.glyphicon-remove(style="color:white;")
