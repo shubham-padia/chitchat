@@ -29,15 +29,17 @@ router.get('/rooms/delete/:id',function(req,res){
 });
 
 router.route('/rooms/edit/:id')
-        .get(function(req,res){
+        .all(function(req,res,next){
                 var room_id = req.params.id;
                 room = _.find(rooms , a => a.id === room_id);
-                res.render('edit',{ room : room, baseUrl : req.baseUrl});
+                res.locals.room = room ;
+                next();
+        })
+        .get(function(req,res){
+                res.render('edit',{baseUrl : req.baseUrl});
         })
         .post(function(req,res){
-                var room_id = req.params.id;
-                room = _.find(rooms , a => a.id === room_id);
-                room.name = req.body.room_name;
+                res.locals.room.name = req.body.room_name;
                 res.redirect(req.baseUrl + '/rooms');
         });
 
