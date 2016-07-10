@@ -9,7 +9,7 @@ var messages = require('./data/messages.json');
 var router = express.Router();
 module.exports = router;
 
-router.use(bodyparser.urlencoded({extended : true}));
+router.use(bodyparser.json({extended : true}));
 router.get('/rooms',function(req,res){
     res.json(rooms);
 });
@@ -17,7 +17,7 @@ router.get('/rooms',function(req,res){
 router.route('/rooms/:roomId/messages')
     .all(function(req,res,next){
         var room_msg = messages.filter(r => r.roomId == req.params.roomId);
-        var room_temp = rooms.filter(r => r.id == req.params.roomId);
+        var room_temp = rooms.filter(r => r.id === req.params.roomId);
         res.locals.room_temp = room_temp;
         res.locals.room_msg = room_msg;
         next();
@@ -36,5 +36,9 @@ router.route('/rooms/:roomId/messages')
             id : uuid.v4()
         }
         messages.push(message);
-        res.send(message);
+        res.sendStatus(200);
+    })
+    .delete(function(req,res){
+        res.locals.room_temp = rooms.filter(r => r.id !== req.params.roomId);
+        res.sendStatus(200);
     });
