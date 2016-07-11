@@ -9,6 +9,7 @@ app.use(express.static('public'));
 app.use(express.static('node_modules/bootstrap/dist'));
 app.use(express.static('node_modules/jquery/dist'));
 app.use(bodyparser.urlencoded({extended : true}));
+app.use(require('./logging.js'));
 
 var admin_router = require('./admin.js');
 app.use('/adminportal',admin_router);
