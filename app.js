@@ -25,6 +25,7 @@ var authrouter = require('./auth.js');
 app.use(authrouter);
 app.use(function(req,res,next){
     if(req.isAuthenticated()){
+        res.locals.username = req.user.name;
         next();
         return;
     } 

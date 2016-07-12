@@ -2,6 +2,7 @@ var express = require('express');
 var uuid = require('node-uuid');
 var _ = require('lodash');
 var bodyparser = require('body-parser');
+var users = require('./data/users.json');
 
 var rooms = require('./data/rooms.json');
 var messages = require('./data/messages.json');
@@ -16,8 +17,13 @@ router.get('/rooms',function(req,res){
 
 router.route('/rooms/:roomId/messages')
     .all(function(req,res,next){
-        var room_msg = messages.filter(r => r.roomId == req.params.roomId);
-        var room_temp = rooms.filter(r => r.id === req.params.roomId);
+        var room_msg = messages
+            .filter(r => r.roomId == req.params.roomId)
+            .map(r => {
+                var user = _.find(users, u => u.id === r.userId);
+                return {text: `${user.name}: ${r.text}`};
+            });
+        var room_temp = rooms.filter(s => s.id === req.params.roomId);
         res.locals.room_temp = room_temp;
         res.locals.room_msg = room_msg;
         next();
@@ -32,7 +38,7 @@ router.route('/rooms/:roomId/messages')
         var message =  {
             text : req.body.text,
             roomId : req.params.roomId,
-            userId: '44f885e8-87e9-4911-973c-4074188f408a',
+            userId: req.user.id,
             id : uuid.v4()
         }
         messages.push(message);

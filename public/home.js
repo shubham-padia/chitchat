@@ -39,10 +39,10 @@ $(function () {
             type: "GET",
             url: "/api/rooms/" + roomId + "/messages",
         }).done(function (data) {
-            $("#roomName").text("Messages for " + data.room.name);
+            $("#roomName").text("Messages for " + data.room[0].name);
             var messages = "";
             $.each(data.messages, function (key, message) {
-                messages += message.text + "\r";
+                messages +=  message.text + "\r";
             });
             $("#messages").val(messages);
         });

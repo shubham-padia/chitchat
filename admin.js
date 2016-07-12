@@ -5,6 +5,14 @@ var rooms = require('./data/rooms.json');
 var router = express.Router();
 module.exports = router;
 
+router.use(function(req,res,next){
+    if(req.user.admin){
+        next();
+        return;
+    } 
+    res.redirect('/login');
+});
+
 router.get('/rooms',function(req,res){
         res.render('rooms',{title: 'Rooms', rooms: rooms , baseUrl : req.baseUrl});
 });

@@ -7,7 +7,8 @@
   {
     "name": "jane",
     "id": "1d7975e3-d2ca-4836-b9b0-967ab1ccb61f",
-    "password": "doe"
+    "password": "doe",
+    "admin": true
   },
   {
     "name": "john",
