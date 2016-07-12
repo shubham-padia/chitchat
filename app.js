@@ -21,14 +21,22 @@ app.use(require('express-session')({
 app.use(passport.initialize());
 app.use(passport.session());
 
+var authrouter = require('./auth.js');
+app.use(authrouter);
+app.use(function(req,res,next){
+    if(req.isAuthenticated()){
+        next();
+        return;
+    } 
+    res.redirect('/login');
+});
+
 var adminrouter = require('./admin.js');
 app.use('/adminportal',adminrouter);
 
 var apirouter = require('./api.js');
 app.use('/api',apirouter);
 
-var authrouter = require('./auth.js');
-app.use(authrouter);
 
 app.get('/',function(req,res){
         res.render('home',{title: "Chit Chat"});
