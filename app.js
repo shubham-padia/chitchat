@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var bodyparser = require('body-parser');
 var passport = require('passport');
+var mongodb = require('./db.js');
 require('./passport-init.js');
 
 
