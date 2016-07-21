@@ -1,14 +1,19 @@
 var express = require('express');
 var uuid = require('node-uuid');
 var _ = require('lodash');
-var rooms = require('./data/rooms.json');
+var Rooms = require('./schemas/rooms.js');
+var Rooms_obj
+Rooms.find({},function(err,room){
+        if (err) throw err;
+        Rooms_obj = room;
+});
 var router = express.Router();
 module.exports = router;
 
 
 
 router.get('/rooms',function(req,res){
-        res.render('rooms',{title: 'Rooms', rooms: rooms , baseUrl : req.baseUrl});
+        res.render('rooms',{title: 'Rooms', rooms: Rooms_obj, baseUrl : req.baseUrl});
 });
 
 router.route('/rooms/add')
@@ -16,12 +21,14 @@ router.route('/rooms/add')
                 res.render('add',{ baseUrl : req.baseUrl});
         })
         .post(function(req,res){
-                var room = {
+                var room = Rooms({
                         name: req.body.room_name,
                         id: uuid.v4()
-                }
+                });
 
-                rooms.push(room);
+                room.save(function(err) {
+                        if (err) throw err;
+                });
                 res.redirect(req.baseUrl + '/rooms');
         });
 router.get('/rooms/delete/:id',function(req,res){
