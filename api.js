@@ -4,7 +4,13 @@ var _ = require('lodash');
 var bodyparser = require('body-parser');
 var users = require('./data/users.json');
 
-var rooms = require('./data/rooms.json');
+var Rooms = require('./schemas/rooms.js');
+var rooms;
+Rooms.find({},function(err,room){
+    if (err) throw err;
+    rooms = room;
+});
+
 var messages = require('./data/messages.json');
 
 var router = express.Router();
@@ -12,7 +18,7 @@ module.exports = router;
 
 router.use(bodyparser.json({extended : true}));
 router.get('/rooms',function(req,res){
-    res.json(rooms);
+    res.send(rooms);
 });
 
 router.route('/rooms/:roomId/messages')
