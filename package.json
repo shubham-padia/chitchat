@@ -9,19 +9,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.2",
     "bootstrap": "^3.3.6",
+    "connect-flash": "^0.1.1",
     "express": "^4.14.0",
     "express-session": "^1.14.0",
     "jade": "^1.11.0",
     "jquery": "^3.1.0",
     "lodash": "^4.13.1",
+    "mongodb": "^2.2.1",
+    "mongoose": "^4.5.4",
     "node-uuid": "^1.4.7",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
-    "pug": "^2.0.0-beta3",
-    "mongodb": "^2.2.1",
-    "mongoose": "^4.5.4"
+    "pug": "^2.0.0-beta3"
   },
   "devDependencies": {
     "morgan": "^1.7.0"
