@@ -44,7 +44,7 @@ var auth_routes = require('./auth.js')(passport);
 app.use('/', auth_routes);
 
 var adminrouter = require('./admin.js');
-app.use('/adminportal',adminrouter);
+app.use('/adminportal',isAuthenticated ,adminrouter);
 
 var apirouter = require('./api.js');
 app.use('/api',apirouter);
