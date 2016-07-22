@@ -2,7 +2,12 @@ var express = require('express');
 var uuid = require('node-uuid');
 var _ = require('lodash');
 var bodyparser = require('body-parser');
-var users = require('./data/users.json');
+var Users = require('./schemas/users.js');
+var users;
+Users.find({},function(err,usr){
+    if (err) throw err;
+    users = usr;
+});
 
 var Rooms = require('./schemas/rooms.js');
 var rooms;
@@ -11,8 +16,12 @@ Rooms.find({},function(err,room){
     rooms = room;
 });
 
-var messages = require('./data/messages.json');
-
+var Messages = require('./schemas/messages.js');
+var messages;
+Messages.find({},function(err,msg){
+    if (err) throw err;
+    messages = msg;
+});
 var router = express.Router();
 module.exports = router;
 
@@ -41,13 +50,15 @@ router.route('/rooms/:roomId/messages')
         });
     })
     .post(function(req,res){
-        var message =  {
+        var message =  Messages({
             text : req.body.text,
             roomId : req.params.roomId,
             userId: req.user.id,
             id : uuid.v4()
-        }
-        messages.push(message);
+        });
+        message.save(function(err){
+            if(err) throw err;
+        });
         res.sendStatus(200);
     })
     .delete(function(req,res){
