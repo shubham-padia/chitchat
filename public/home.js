@@ -26,6 +26,7 @@ $(function () {
         }).done(function () {
             $("#message").val("");
             getMessages();
+            console.log("it were fetched");
         });
     });
 
@@ -35,10 +36,12 @@ $(function () {
     });
 
     function getMessages() {
+        
         $.ajax({
             type: "GET",
             url: "/api/rooms/" + roomId + "/messages",
         }).done(function (data) {
+            console.log("messsages were fetched");  
             $("#roomName").text("Messages for " + data.room[0].name);
             var messages = "";
             $.each(data.messages, function (key, message) {
